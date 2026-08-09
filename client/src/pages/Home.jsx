@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRoom } from '../hooks/useRoom';
+import { API_URL } from '../config/api';
 
 const FEATURES = [
   {
