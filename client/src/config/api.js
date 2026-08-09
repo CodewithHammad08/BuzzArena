@@ -1,17 +1,12 @@
-const configuredServerUrl = import.meta.env.VITE_SERVER_URL;
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-// If VITE_SERVER_URL is missing in production, fallback to the actual Render backend
-// rather than crashing the app.
-const fallbackUrl = import.meta.env.PROD 
-  ? 'https://buzzarena.onrender.com' 
-  : 'http://localhost:5000';
+if (!SERVER_URL) {
+  throw new Error(
+    'VITE_SERVER_URL is not configured. Set it in the environment before starting BuzzArena.'
+  );
+}
 
-const targetUrl = configuredServerUrl || fallbackUrl;
-
-// Normalize the URL by removing trailing slash
-let normalizedUrl = targetUrl.replace(/\/$/, '');
-
-export const API_URL = normalizedUrl;
+export const API_URL = SERVER_URL.replace(/\/$/, '');
 
 if (import.meta.env.DEV) {
   console.log('[BuzzArena] API Server:', API_URL);
