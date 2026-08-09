@@ -34,7 +34,8 @@ export default function Join() {
     const validate = async () => {
       setValidating(true);
       try {
-        const res = await fetch(`/api/rooms/${code.toUpperCase()}`);
+        const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/rooms/${code.toUpperCase()}`);
         setRoomValid(res.ok);
         if (!res.ok) toast.error('Room not found or expired');
       } catch {
@@ -76,7 +77,8 @@ export default function Join() {
     if (roomValid === null || roomValid === false) {
       setValidating(true);
       try {
-        const res = await fetch(`/api/rooms/${trimCode}`);
+        const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+        const res = await fetch(`${API_URL}/api/rooms/${trimCode}`);
         if (!res.ok) {
           setRoomValid(false);
           toast.error('Room not found. Check the code and try again.');

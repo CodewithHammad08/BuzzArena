@@ -28,8 +28,12 @@ app.use(express.json());
 // ─── REST Routes ───────────────────────────────────────────────────────────────
 app.use('/api/rooms', roomRoutes);
 
-app.get('/health', (_req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "healthy",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
 });
 
 // ─── Socket.IO Setup ──────────────────────────────────────────────────────────
