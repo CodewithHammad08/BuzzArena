@@ -6,9 +6,9 @@
 
 import { io } from 'socket.io-client';
 
-const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+import { API_URL } from '../config/api';
 
-export const socket = io(SERVER_URL, {
+export const socket = io(API_URL, {
   autoConnect: false,       // We connect manually when entering a room
   reconnection: true,
   reconnectionDelay: 1000,

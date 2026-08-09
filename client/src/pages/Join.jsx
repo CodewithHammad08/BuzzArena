@@ -11,6 +11,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Users, Hash, ArrowRight, UserPlus, Trash2, User, CheckCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useRoom } from '../hooks/useRoom';
+import { API_URL } from '../config/api';
 
 const MIN_MEMBERS = 2;
 const MAX_MEMBERS = 4;
@@ -34,7 +35,6 @@ export default function Join() {
     const validate = async () => {
       setValidating(true);
       try {
-        const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/rooms/${code.toUpperCase()}`);
         setRoomValid(res.ok);
         if (!res.ok) toast.error('Room not found or expired');
@@ -77,7 +77,6 @@ export default function Join() {
     if (roomValid === null || roomValid === false) {
       setValidating(true);
       try {
-        const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
         const res = await fetch(`${API_URL}/api/rooms/${trimCode}`);
         if (!res.ok) {
           setRoomValid(false);

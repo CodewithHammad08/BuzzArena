@@ -58,7 +58,6 @@ export default function Home() {
 
     setLoading(true);
     try {
-      const API_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
       const res = await fetch(`${API_URL}/api/rooms`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
