@@ -1,13 +1,15 @@
 const configuredServerUrl = import.meta.env.VITE_SERVER_URL;
 
-if (import.meta.env.PROD && !configuredServerUrl) {
-  throw new Error(
-    'Production configuration error: VITE_SERVER_URL is not defined.'
-  );
-}
+// If VITE_SERVER_URL is missing in production, fallback to the actual Render backend
+// rather than crashing the app.
+const fallbackUrl = import.meta.env.PROD 
+  ? 'https://buzzarena.onrender.com' 
+  : 'http://localhost:5000';
+
+const targetUrl = configuredServerUrl || fallbackUrl;
 
 // Normalize the URL by removing trailing slash
-let normalizedUrl = configuredServerUrl ? configuredServerUrl.replace(/\/$/, '') : 'http://localhost:5000';
+let normalizedUrl = targetUrl.replace(/\/$/, '');
 
 export const API_URL = normalizedUrl;
 
